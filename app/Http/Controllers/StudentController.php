@@ -12,7 +12,7 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __invoke()
     {
         $data = Student::latest()->paginate(5);
 
