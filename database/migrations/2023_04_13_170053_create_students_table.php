@@ -11,13 +11,14 @@ return new class extends Migration{
      * @return void
      */
     public function up(){
-        Schema::create('pets', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('nick');
             $table->string('pet_name');
-            $table->enum('race', ['Boxer', 'Buldog', 'Labrador', 'Caniche']);
+            $table->enum('race', ['Boxer', 'Bulldog', 'Labrador', 'Caniche']);
             $table->enum('pet_gender', ['Male', 'Female']);
             $table->integer('Age');
+            $table->string('Color');
             $table->string('Human_name');
             $table->string('Phone');
             $table->string('student_image');
@@ -31,7 +32,7 @@ return new class extends Migration{
      * @return void
      */
     public function down(){
-        Schema::dropIfExists('pets');
+        Schema::dropIfExists('students');
     }
 };
 

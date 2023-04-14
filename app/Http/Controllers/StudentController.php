@@ -38,9 +38,15 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'student_name'          =>  'required',
-            'student_email'         =>  'required|email|unique:students',
-            'student_image'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
+            'nick'                  =>  'required', 
+            'pet_name'              =>  'required',
+            'race'                  =>  'required',
+            'Age'                   =>  'required',
+            'student_image'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'pet_gender'            =>  'required',
+            'Color'                 =>  'required',
+            'Human_name'            =>  'required',
+            'Phone'                 =>  'required'
         ]);
 
         $file_name = time() . '.' . request()->student_image->getClientOriginalExtension();
@@ -49,9 +55,14 @@ class StudentController extends Controller
 
         $student = new Student;
 
-        $student->student_name = $request->student_name;
-        $student->student_email = $request->student_email;
-        $student->student_gender = $request->student_gender;
+        $student->nick = $request->nick;
+        $student->pet_name = $request->pet_name;
+        $student->race = $request->race;
+        $student->Age = $request->Age;
+        $student->pet_gender = $request->pet_gender;
+        $student->Color = $request->Color;
+        $student->Human_name = $request->Human_name;
+        $student->Phone = $request->Phone;
         $student->student_image = $file_name;
 
         $student->save();
@@ -69,57 +80,6 @@ class StudentController extends Controller
     {
         return view('show', compact('student'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        return view('edit', compact('student'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Student $student)
-    {
-        $request->validate([
-            'student_name'      =>  'required',
-            'student_email'     =>  'required|email',
-            'student_image'     =>  'image|mimes:jpg,png,jpeg,gif,svg|max:3048|dimensions:min_width=100,min_height=100,max_width=1500,max_height=1500'
-        ]);
-
-        $student_image = $request->hidden_student_image;
-
-        if($request->student_image != '')
-        {
-            $student_image = time() . '.' . request()->student_image->getClientOriginalExtension();
-
-            request()->student_image->move(public_path('images'), $student_image);
-        }
-
-        $student = Student::find($request->hidden_id);
-
-        $student->student_name = $request->student_name;
-
-        $student->student_email = $request->student_email;
-
-        $student->student_gender = $request->student_gender;
-
-        $student->student_image = $student_image;
-
-        $student->save();
-
-        return redirect()->route('students.index')->with('success', 'Student Data has been updated successfully');
-    }
-
     /**
      * Remove the specified resource from storage.
      *
