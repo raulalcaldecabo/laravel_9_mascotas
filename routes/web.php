@@ -20,6 +20,6 @@ use App\Http\Controllers\StudentController;
     Route::resource('students', StudentController::class);
 });*/
 
-Route::get("/",StudentController::class);
+/*Route::get("/",StudentController::class);*/
 
 Route::resource('students', StudentController::class);
